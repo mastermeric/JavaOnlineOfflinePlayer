@@ -6,8 +6,8 @@ import javafx.scene.media.MediaPlayer;
 public class PublicValues {
 
 
-	//PublicDegerler.LisansDosyasi = "/mnt/myusb/data_binx/data.binx"; // LINUX
-	//PublicDegerler.LisansDosyasi = "/home/exeler/data.binx"; // LINUX
+	//PublicValues.LisansDosyasi = "/mnt/myusb/data_binx/data.binx"; // LINUX
+	//PublicValues.LisansDosyasi = "/home/exeler/data.binx"; // LINUX
 
 	public static int i;
 	public static int UsedDays;
