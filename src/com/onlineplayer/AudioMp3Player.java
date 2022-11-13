@@ -163,9 +163,9 @@ public class AudioMp3Player extends Application implements Runnable
 			        //***********************************************************
 
 			        //****************    Sifreli Cal       ***********************
-			        //sifrele(PublicDegerler.EncFileName);
+			        //sifrele(PublicValues.EncFileName);
 			        //Thread.sleep(500);
-			        //play(PublicDegerler.TempClearFileName);
+			        //play(PublicValues.TempClearFileName);
 			        //***********************************************************
 				}
 			}
@@ -186,7 +186,7 @@ public class AudioMp3Player extends Application implements Runnable
 	    	logger myLog = new logger();
 
 	    	//sifreli cal..
-	    	//Media media = new Media(Paths.get(PublicDegerler.TempClearFileName).toUri().toString());
+	    	//Media media = new Media(Paths.get(PublicValues.TempClearFileName).toUri().toString());
 
 	    	//sifresiz cal..
 	    	Media media = new Media(Paths.get(PublicValues.EncFileName).toUri().toString());
@@ -218,23 +218,23 @@ public class AudioMp3Player extends Application implements Runnable
 							Thread.sleep(100);
 							player.dispose();
 							System.gc();
-							//Files.deleteIfExists(Paths.get(PublicDegerler.TempClearFileName));
+							//Files.deleteIfExists(Paths.get(PublicValues.TempClearFileName));
 							if (itr.hasNext())
 							{
 								String str  = itr.next();
-			        	        PublicDegerler.EncFileName = str.substring(8, str.length()); //  Path To Str  yapmis olduk
+			        	        PublicValues.EncFileName = str.substring(8, str.length()); //  Path To Str  yapmis olduk
 
 			                    //Plays the subsequent files
 
 			        	        //****************    Sifresiz Cal       *********************
 			        	        Thread.sleep(100);
-			                	play(PublicDegerler.EncFileName);
+			                	play(PublicValues.EncFileName);
 			                	//************************************************************
 
 			                	//****************    Sifreli Cal       **********************
-			                	//sifrele(PublicDegerler.EncFileName);
+			                	//sifrele(PublicValues.EncFileName);
 			                	//Thread.sleep(500);
-			                	//play(PublicDegerler.TempClearFileName);
+			                	//play(PublicValues.TempClearFileName);
 			                	//************************************************************
 							}
 		            	 }
@@ -285,7 +285,7 @@ public class AudioMp3Player extends Application implements Runnable
 	            }
 
 	        	myLog.logWrite("Decryption Ok...  binaryData.length =" + String.valueOf(binaryData.length) );
-	        	myLog.logWrite("PublicDegerler.TempClearFileName =" + PublicValues.TempClearFileName);
+	        	myLog.logWrite("PublicValues.TempClearFileName =" + PublicValues.TempClearFileName);
 
 	        	FileOutputStream tempClearFile = new FileOutputStream(PublicValues.TempClearFileName);
 	        	myLog.logWrite("Stage-1  ok..");

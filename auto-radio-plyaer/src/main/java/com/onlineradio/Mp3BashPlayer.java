@@ -25,19 +25,19 @@ public class Mp3BashPlayer
 		try
 		{
 
-			File myFodler = new File(PublicDegerler.targetDirectory);
+			File myFodler = new File(PublicValues.targetDirectory);
 			File[] myFiles = myFodler.listFiles();
-			PublicDegerler.UsedDays = 0;
+			PublicValues.UsedDays = 0;
 			myLog.logYaz("App Started..");
 
-			PublicDegerler.LicenceTimeLeftStr = myLog.TekSatirOku(PublicDegerler.LisansDosyasi); // Muzik klasor adresini dinamik al..
-			PublicDegerler.LicenceTimeLeft = Integer.valueOf(PublicDegerler.LicenceTimeLeftStr);
+			PublicValues.LicenceTimeLeftStr = myLog.TekSatirOku(PublicValues.LisansDosyasi); // Muzik klasor adresini dinamik al..
+			PublicValues.LicenceTimeLeft = Integer.valueOf(PublicValues.LicenceTimeLeftStr);
 
 			myLog.logYaz("Startup Licence Situation :");
-			myLog.logYaz("Remaining Days : " + String.valueOf(PublicDegerler.LicenceTimeLeft));
+			myLog.logYaz("Remaining Days : " + String.valueOf(PublicValues.LicenceTimeLeft));
 
 			// Program acilis Lisans kontrolu ..
-			if(PublicDegerler.LicenceTimeLeft < 60)
+			if(PublicValues.LicenceTimeLeft < 60)
 			{
 				myLog.logYaz("APP CANNOT BE STARTED ! Licence Expired ..");
 				System.exit(0);
@@ -50,18 +50,18 @@ public class Mp3BashPlayer
 			@Override
 			public void run()
 			{
-				PublicDegerler.UsedDays++;
-				PublicDegerler.ReaminingTime = PublicDegerler.LicenceTimeLeft - PublicDegerler.UsedDays;
+				PublicValues.UsedDays++;
+				PublicValues.ReaminingTime = PublicValues.LicenceTimeLeft - PublicValues.UsedDays;
 
 				//Lisans dosyasini guncelle
-				if((PublicDegerler.UsedDays %20) == 0)  // 10 dk da bir sn de bir lisans guncelle..
+				if((PublicValues.UsedDays %20) == 0)  // 10 dk da bir sn de bir lisans guncelle..
 				{
 					PrintWriter pw;
 					try
 					{
-						pw = new PrintWriter(PublicDegerler.LisansDosyasi);
+						pw = new PrintWriter(PublicValues.LisansDosyasi);
 						pw.print("");
-						pw.print(PublicDegerler.ReaminingTime);
+						pw.print(PublicValues.ReaminingTime);
 						pw.close();
 					}
 					catch (Exception ex)
@@ -74,14 +74,14 @@ public class Mp3BashPlayer
 				//Lisans kontrolu  SIMDILIK SUREKLI LISANS KONTROLUNE GEREK YOK..
 				try
 				{
-				  if((PublicDegerler.UsedDays %10) == 0)  // 10 dk da bir sn de bir Lisans kontrolu..
+				  if((PublicValues.UsedDays %10) == 0)  // 10 dk da bir sn de bir Lisans kontrolu..
 					{
 						myLog.logYaz("Lisans guncellendi.. ");
-						myLog.logYaz("Used Days : " + String.valueOf(PublicDegerler.UsedDays));
-						myLog.logYaz("Remaining Days : " + String.valueOf(PublicDegerler.ReaminingTime));
+						myLog.logYaz("Used Days : " + String.valueOf(PublicValues.UsedDays));
+						myLog.logYaz("Remaining Days : " + String.valueOf(PublicValues.ReaminingTime));
 
 						// Lisans kontrolu 60 sn de bir yapiliyor..
-						if(PublicDegerler.ReaminingTime < 60)
+						if(PublicValues.ReaminingTime < 60)
 						{
 							myLog.logYaz("APP CLOSING! Licence Expired !");
 							System.exit(0);
@@ -129,14 +129,14 @@ public class Mp3BashPlayer
 		    	String tempDuration = dosyaStr.substring(dosyaStr.indexOf("TIME-")+5, dosyaStr.indexOf("TIME-")+11);
 	        	ZamanHesapla(tempDuration);
 
-		    	PublicDegerler.EncFileName = PublicDegerler.targetDirectory + dosyaStr;
+		    	PublicValues.EncFileName = PublicValues.targetDirectory + dosyaStr;
 
 				//*********************************************************
-				//sifrele(PublicDegerler.EncFileName);  // Sifreli Calmak icin bunu ac..
+				//sifrele(PublicValues.EncFileName);  // Sifreli Calmak icin bunu ac..
 				Thread.sleep(500);
 				BashCommandExecuter myExecuter = new BashCommandExecuter();
-				myExecuter.ExecuteCommand("mpg123 " + PublicDegerler.EncFileName);
-				Thread.sleep(PublicDegerler.SongDuration*1000);
+				myExecuter.ExecuteCommand("mpg123 " + PublicValues.EncFileName);
+				Thread.sleep(PublicValues.SongDuration*1000);
 				myExecuter.ExecuteCommand("pkill -f mpg123");
 				Thread.sleep(500);
 				//***********************************************************
@@ -169,7 +169,7 @@ public class Mp3BashPlayer
         			binaryData[len] ^= maskForMusicFile;
         		}
             }
-        	//FileOutputStream tempClearFile = new FileOutputStream(PublicDegerler.TempClearFileName);
+        	//FileOutputStream tempClearFile = new FileOutputStream(PublicValues.TempClearFileName);
         	myLog.logYaz(EncryptedDosya +" -->> Decryption Ok.. length =" + String.valueOf(binaryData.length) + "Tempfile created. Ok." );
         	tempClearFile.write(binaryData);
         	tempClearFile.close();
@@ -184,7 +184,7 @@ public class Mp3BashPlayer
 
 	 public int ZamanHesapla (String sure)
 	    {
-	    	PublicDegerler.SongDuration = 0;
+	    	PublicValues.SongDuration = 0;
 	    	String saatStr, dakikaStr, saniyeStr;
 	    	int saat, dakika, saniye, toplamSure;
 
@@ -199,7 +199,7 @@ public class Mp3BashPlayer
 	    		saniye = Integer.valueOf(saniyeStr);
 
 	    		toplamSure = saat*60*60 + dakika*60 + saniye;
-	    		PublicDegerler.SongDuration = toplamSure;
+	    		PublicValues.SongDuration = toplamSure;
 
 	    	}
 	    	return 0;

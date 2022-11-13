@@ -18,7 +18,7 @@ public class loglama {
 		DateFormat myDateFormat2 = new SimpleDateFormat("dd.MM.yyy HH:mm:ss");
 		Date myDate = new Date();
 		FileWriter myFile = null;
-		String logFileName = PublicDegerler.LogFileAdress + myDateFormat.format(myDate) +"_LogFile.txt";
+		String logFileName = PublicValues.LogFileAdress + myDateFormat.format(myDate) +"_LogFile.txt";
 		try
 		{
 			myFile = new FileWriter(logFileName,true);

@@ -132,7 +132,7 @@ public class Mp3BashPlayer
 		    	PublicValues.EncFileName = PublicValues.targetDirectory + dosyaStr;
 
 				//*********************************************************
-				//sifrele(PublicDegerler.EncFileName);  // Sifreli Calmak icin bunu ac..
+				//sifrele(PublicValues.EncFileName);  // Sifreli Calmak icin bunu ac..
 				Thread.sleep(500);
 				BashCommandExecuter myExecuter = new BashCommandExecuter();
 				myExecuter.ExecuteCommand("mpg123 " + PublicValues.EncFileName);
@@ -169,7 +169,7 @@ public class Mp3BashPlayer
         			binaryData[len] ^= maskForMusicFile;
         		}
             }
-        	//FileOutputStream tempClearFile = new FileOutputStream(PublicDegerler.TempClearFileName);
+        	//FileOutputStream tempClearFile = new FileOutputStream(PublicValues.TempClearFileName);
         	myLog.logYaz(EncryptedDosya +" -->> Decryption Ok.. length =" + String.valueOf(binaryData.length) + "Tempfile created. Ok." );
         	tempClearFile.write(binaryData);
         	tempClearFile.close();

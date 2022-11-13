@@ -22,7 +22,7 @@ public class konsolv1
 		logger myLog = new logger();
 		try
 		{
-			//Files.deleteIfExists(Paths.get(PublicDegerler.TempClearFileName)); // gerek yok..
+			//Files.deleteIfExists(Paths.get(PublicValues.TempClearFileName)); // gerek yok..
 
 			//WINDOWS PLAYER...			
 			Thread.sleep(500);
@@ -85,25 +85,25 @@ public class konsolv1
 		//String targetDirectory ="/home/muzikler"; // LINUX
 		String targetDirectory ="C:\\muzikler"; // WINDOWS
 
-		PublicDegerler.LisansDosyasi = "data.binx"; // WINDOWS
-		//PublicDegerler.LisansDosyasi = "/mnt/myusb/data_binx/data.binx"; // LINUX
-		//PublicDegerler.LisansDosyasi = "/home/exeler/data.binx"; // LINUX
+		PublicValues.LisansDosyasi = "data.binx"; // WINDOWS
+		//PublicValues.LisansDosyasi = "/mnt/myusb/data_binx/data.binx"; // LINUX
+		//PublicValues.LisansDosyasi = "/home/exeler/data.binx"; // LINUX
 
 		try
 		{
 			File myFodler = new File(targetDirectory);
 			File[] myFiles = myFodler.listFiles();
-			PublicDegerler.UsedDays = 0;
+			PublicValues.UsedDays = 0;
 			myLog.logYaz("App Started..");
 
-			PublicDegerler.LicenceTimeLeftStr = myLog.TekSatirOku(PublicDegerler.LisansDosyasi); // Muzik klasor adresini dinamik al..
-			PublicDegerler.LicenceTimeLeft = Integer.valueOf(PublicDegerler.LicenceTimeLeftStr);
+			PublicValues.LicenceTimeLeftStr = myLog.TekSatirOku(PublicValues.LisansDosyasi); // Muzik klasor adresini dinamik al..
+			PublicValues.LicenceTimeLeft = Integer.valueOf(PublicValues.LicenceTimeLeftStr);
 
 			myLog.logYaz("Startup Licence Situation :");
-			myLog.logYaz("Remaining Days : " + String.valueOf(PublicDegerler.LicenceTimeLeft));
+			myLog.logYaz("Remaining Days : " + String.valueOf(PublicValues.LicenceTimeLeft));
 
 			// Lisans kontrolu 30 sn de bir yapiliyor..
-			if(PublicDegerler.LicenceTimeLeft < 60)
+			if(PublicValues.LicenceTimeLeft < 60)
 			{
 				myLog.logYaz("APP CANNOT BE STARTED ! Licence Expired ..");
 				System.exit(0);
@@ -121,18 +121,18 @@ public class konsolv1
 			@Override
 			public void run()
 			{
-				PublicDegerler.UsedDays++;
-				PublicDegerler.ReaminingTime = PublicDegerler.LicenceTimeLeft - PublicDegerler.UsedDays;
+				PublicValues.UsedDays++;
+				PublicValues.ReaminingTime = PublicValues.LicenceTimeLeft - PublicValues.UsedDays;
 
 				//Lisans dosyasini guncelle
-				if((PublicDegerler.UsedDays %10) == 0)  // 30 sn de bir lisans guncelle..
+				if((PublicValues.UsedDays %10) == 0)  // 30 sn de bir lisans guncelle..
 				{
 					PrintWriter pw;
 					try
 					{
-						pw = new PrintWriter(PublicDegerler.LisansDosyasi);
+						pw = new PrintWriter(PublicValues.LisansDosyasi);
 						pw.print("");
-						pw.print(PublicDegerler.ReaminingTime);
+						pw.print(PublicValues.ReaminingTime);
 						pw.close();
 					}
 					catch (Exception ex)
@@ -144,17 +144,17 @@ public class konsolv1
 				//Lisans kontrolu
 				try
 				{
-				  if((PublicDegerler.UsedDays %20 ) == 0)  // 60 sn de bir Lisans kontrolu..
+				  if((PublicValues.UsedDays %20 ) == 0)  // 60 sn de bir Lisans kontrolu..
 					{
 						myLog.logYaz("Lisans guncellendi .... ");
-						myLog.logYaz("Used Days : " + String.valueOf(PublicDegerler.UsedDays));
-						myLog.logYaz("Remaining Days : " + String.valueOf(PublicDegerler.ReaminingTime));
+						myLog.logYaz("Used Days : " + String.valueOf(PublicValues.UsedDays));
+						myLog.logYaz("Remaining Days : " + String.valueOf(PublicValues.ReaminingTime));
 
 						// Lisans kontrolu 60 sn de bir yapiliyor..
-						if(PublicDegerler.ReaminingTime < 60)
+						if(PublicValues.ReaminingTime < 60)
 						{
 							myLog.logYaz("APP CLOSING! Licence Expired !");
-							Files.deleteIfExists(Paths.get(PublicDegerler.TempClearFileName));
+							Files.deleteIfExists(Paths.get(PublicValues.TempClearFileName));
 							System.exit(0);
 						}
 					}
@@ -218,7 +218,7 @@ public class konsolv1
 		        	//clearFileName = clearFilesLocation+"/tempfile.wav";// Linux
 		        	//Path EncryptedDosya = Paths.get(targetDirectory +"/"+myFiles[sayac].getName());//Linux
 
-		        	PublicDegerler.TempClearFileName = clearFileName;
+		        	PublicValues.TempClearFileName = clearFileName;
 
 		        	byte[] binaryData = Files.readAllBytes(EncryptedDosya);
 		        	for (int len = 0; len < binaryData.length; len++)
