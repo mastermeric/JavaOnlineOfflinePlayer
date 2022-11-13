@@ -9,5 +9,5 @@
 - Project is dedicated to work on Linux devices.
 - There is different Players implemented for optional usage.
 ## BUILD NOTES :
-- Online Implementation does not exist in this release.
-- Project used with javafx-sdk-19 ; so please downlad the SDK and change SDK path
+- App works as online in this release. (Online Implementation does not implemented) 
+- Project used with javafx-sdk-19 ; so please downlad the SDK and change SDK reference paths
